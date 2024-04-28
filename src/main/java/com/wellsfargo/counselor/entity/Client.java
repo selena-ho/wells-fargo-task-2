@@ -5,13 +5,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Advisor {
-
+public class Client {
     @Id
     @GeneratedValue()
-    private long advisorId;
+    private long clientId;
+
+    @ManyToOne
+    private Advisor advisorId;
 
     @Column(nullable = false)
     private String firstName;
@@ -28,20 +31,17 @@ public class Advisor {
     @Column(nullable = false)
     private String email;
 
-    protected Advisor() {
+    protected Client() {
 
     }
 
-    public Advisor(String firstName, String lastName, String address, String phone, String email) {
+    public Client(String firstName, String lastName, String address, String phone, String email, Advisor advisor) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
         this.email = email;
-    }
-
-    public long getAdvisorId() {
-        return advisorId;
+        this.advisorId = advisor;
     }
 
     public String getFirstName() {
@@ -83,4 +83,8 @@ public class Advisor {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Advisor getAdvisorId() { return advisorId;}
+
+    public void setAdvisorId(Advisor advisorId) { this.advisorId = advisorId;}
 }
